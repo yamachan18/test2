@@ -1,0 +1,272 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python has built-in functions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Hello world!\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('Hello world!')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "5"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len('AGGCT')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can define your own functions with def Let's write a function that calculates the GC content. Let's define this as the fraction of nucleotides in a DNA sequence that are G or C. It can vary from 0 to 1."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.47058823529411764\n"
+     ]
+    }
+   ],
+   "source": [
+    "dna = 'GTACCTTGATTTCGTATTCTGAGAGGCTGCTGCT'\n",
+    "c_count = dna.count('C')  # count is a string method\n",
+    "g_count = dna.count('G')\n",
+    "dna_len = len(dna) # len is a function\n",
+    "gc_content = (c_count + g_count) / dna_len # fraction from 0 to 1\n",
+    "print(gc_content)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We use def do define our own function. It is followed by the name of the function (gc_content) and parameters it will take in parentheses. A colon is the last character on the def line. The parameter variables will be available for your code inside the function to use."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def gc_content(dna):   # give our function a name and parameter 'dna'\n",
+    "   c_count = dna.count('C')\n",
+    "   g_count = dna.count('G')\n",
+    "   dna_len = len(dna)\n",
+    "   gc_content = (c_count + g_count) / dna_len\n",
+    "   return gc_content # return the value to the code that called this function"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You write the name of the function with any variables you want to pass to the function in parentheses. In the example below the contents of dna_string get passed into gc_content(). Inside the function this data is passed to the variable dna."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.47058823529411764\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(gc_content(dna))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To convert the GC fraction to % GC. Use format()."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "This sequence is 47.06% GC\n"
+     ]
+    }
+   ],
+   "source": [
+    "dna_gc = gc_content(dna)\n",
+    "pc_gc = '{:.2%}'.format(dna_gc)\n",
+    "print('This sequence is' , pc_gc , 'GC')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Another new function"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "ATG\n"
+     ]
+    }
+   ],
+   "source": [
+    "def get_first_codon(dna):\n",
+    "  return dna[0:3]\n",
+    "\n",
+    "print(get_first_codon('ATGTTT'))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here is the same function written as a lambda"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "ATG\n"
+     ]
+    }
+   ],
+   "source": [
+    "get_first_codon = lambda dna : dna[0:3]\n",
+    "print(get_first_codon('ATGTTT'))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Problem\n",
+    "\n",
+    "A string is simply an ordered collection of symbols selected from some alphabet and formed into a word; the length of a string is the number of symbols that it contains.\n",
+    "\n",
+    "An example of a length 21 DNA string (whose alphabet contains the symbols 'A', 'C', 'G', and 'T') is \"ATGCTTCAGAAAGGTCTTACG.\"\n",
+    "\n",
+    "Given: A DNA string s of length at most 1000 nt.\n",
+    "\n",
+    "Return: Four integers (separated by spaces) counting the respective number of times that the symbols 'A', 'C', 'G', and 'T' occur in s.\n",
+    "\n",
+    "Sample Dataset: AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def countBases(seq):\n",
+    "    A = 0\n",
+    "    C = 0\n",
+    "    T = 0\n",
+    "    G = 0\n",
+    "    for i in range(0,len(seq)):\n",
+    "        if seq[i] ==\"A\":\n",
+    "            A+=1\n",
+    "        if seq[i] ==\"C\":\n",
+    "            C+=1\n",
+    "        if seq[i] ==\"T\":\n",
+    "            T+=1\n",
+    "        if seq[i] ==\"G\":\n",
+    "            G+=1\n",
+    "    return A, C, T, G"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "countBases(\"AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
